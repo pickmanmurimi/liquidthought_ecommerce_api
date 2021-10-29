@@ -30,11 +30,11 @@ class Controller extends BaseController
     /**
      * sendError
      *
-     * @param  $error
+     * @param string $error
      * @param int $code
      * @return JsonResponse
      */
-    public function sendError( $error, int $code = 404): JsonResponse
+    public function sendError(string $error = 'Whoops! an error occurred', int $code = 500): JsonResponse
     {
         return response()->json([
             'success' => false,
