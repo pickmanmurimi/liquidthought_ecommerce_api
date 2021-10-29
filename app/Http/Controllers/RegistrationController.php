@@ -26,6 +26,8 @@ class RegistrationController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
+            // TODO: email
+
             return $this->sendSuccess('User registered!', 201);
 
         } catch (Exception $exception) {

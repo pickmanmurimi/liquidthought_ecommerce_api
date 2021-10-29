@@ -84,4 +84,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return UserFactory
+     */
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
+    }
 }
