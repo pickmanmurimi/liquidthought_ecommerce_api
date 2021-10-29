@@ -23,4 +23,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'authentication'], function () {
     Route::post('register', [RegistrationController::class, 'register'])->name('auth::register');
     Route::post('login', [AuthenticationController::class, 'login'])->name('auth::login');
+    //get currently logged in user
+    Route::get('me', [AuthenticationController::class, 'me'])->middleware('auth:sanctum')
+        ->name('auth::me');
+
 });

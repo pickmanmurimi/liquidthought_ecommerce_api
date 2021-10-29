@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 
@@ -38,6 +40,14 @@ class AuthenticationController extends Controller
             return $this->sendResponse(['token' => $token->plainTextToken], 200);
         }
         // on auth error
-        return $this->sendResponse( $this->authError, 422);
+        return $this->sendResponse($this->authError, 422);
+    }
+
+    /**
+     * get currently authenticated user
+     */
+    public function me(): UserResource
+    {
+        return (new UserResource(Auth::user()));
     }
 }
