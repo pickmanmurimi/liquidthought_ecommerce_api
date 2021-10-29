@@ -67,4 +67,37 @@ class AuthenticationTest extends TestCase
         $authenticated_user = json_decode($response->getContent())->data;
         $this->assertTrue( $authenticated_user->email === $user->email );
     }
+
+    /**
+     * use auth token to make authenticated requests
+     */
+    public function test_can_use_auth_token()
+    {
+        $response = $this->getJson('api/v1/authentication/me',[
+            'authorization' => 'Bearer ' . $this->getAuthToken()
+        ]);
+
+        $user = User::first();
+
+        $response->assertStatus(200);
+        $authenticated_user = json_decode($response->getContent())->data;
+        $this->assertTrue( $authenticated_user->email === $user->email );
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthToken(): string
+    {
+        // create user
+        /** @var User $user */
+        $user = User::factory()->create();
+        $loginData = [
+            'email' => $user->email,
+            'password' => 'secret',
+        ];
+        $response = $this->postJson('api/v1/authentication/login', $loginData);
+
+        return json_decode( $response->getContent())->token;
+    }
 }
