@@ -29,7 +29,7 @@ class AuthenticationController extends Controller
      * @param LoginRequest $request
      * @return JsonResponse
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): JsonResponse
     {
         /** @var User $user */
         $user = User::whereEmail($request->email)->firstOrFail();
@@ -49,5 +49,19 @@ class AuthenticationController extends Controller
     public function me(): UserResource
     {
         return (new UserResource(Auth::user()));
+    }
+
+    /**
+     * logout a user
+     */
+    public function logout() : JsonResponse
+    {
+        try {
+            Auth::user()->tokens()->delete();
+            return $this->sendSuccess('Successfully logged out.');
+        } catch (\Exception $e)
+        {
+            return $this->sendError();
+        }
     }
 }

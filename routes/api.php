@@ -26,5 +26,8 @@ Route::group(['prefix' => 'authentication'], function () {
     //get currently logged in user
     Route::get('me', [AuthenticationController::class, 'me'])->middleware('auth:sanctum')
         ->name('auth::me');
+    //logout
+    Route::get('logout', [AuthenticationController::class, 'logout'])->middleware('auth:sanctum')
+        ->name('auth::logout');
 
 });

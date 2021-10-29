@@ -85,6 +85,32 @@ class AuthenticationTest extends TestCase
     }
 
     /**
+     * logout
+     */
+    public function test_can_logout()
+    {
+        $token = $this->getAuthToken();
+
+        // send the logout request
+        $response = $this->getJson('api/v1/authentication/logout',[
+            'authorization' => 'Bearer ' . $token
+        ]);
+        $response->assertStatus(200);
+    }
+
+    /**
+     * must be authenticated to view resources
+     */
+    public function test_cannot_access_routes_needing_authentication() {
+
+        // send the request to any route that requires authentication
+        // using the same token
+        $response = $this->getJson('api/v1/authentication/me');
+        $response->assertStatus(401);
+        $response->assertJson(['message' => 'Unauthenticated.']);
+    }
+
+    /**
      * @return mixed
      */
     public function getAuthToken(): string
