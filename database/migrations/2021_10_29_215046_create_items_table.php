@@ -17,6 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->uuid('uuid');
 
+            $table->string('name');
             $table->float('unit_price');
             $table->string('sku');
             $table->string('image_url');
@@ -24,7 +25,6 @@ class CreateItemsTable extends Migration
             $table->boolean('isSale');
             $table->text('description');
             $table->string('currency')->default('ZAR');
-            $table->string('name');
 
             $table->timestamps();
             $table->softDeletes();

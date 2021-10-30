@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,10 @@ Route::group(['prefix' => 'authentication'], function () {
     Route::get('logout', [AuthenticationController::class, 'logout'])->middleware('auth:sanctum')
         ->name('auth::logout');
 
+});
+
+//items
+Route::group(['prefix' => 'items'], function () {
+    Route::get('items', [ItemsController::class, 'index'])->name('items::getAll');
+    Route::get('items/{uuid}', [ItemsController::class, 'show'])->name('items::getAll');
 });
