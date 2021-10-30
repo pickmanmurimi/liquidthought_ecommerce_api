@@ -53,6 +53,8 @@ use App\Traits\UsesUuid;
  * @mixin Eloquent
  * @property string $uuid
  * @method static Builder|User whereUuid($value)
+ * @property-read Collection|\App\Models\Address[] $addresses
+ * @property-read int|null $addresses_count
  */
 class User extends Authenticatable
 {

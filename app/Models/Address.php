@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Address newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Address query()
  * @mixin \Eloquent
+ * @method static \Database\Factories\AddressFactory factory(...$parameters)
  */
 class Address extends Model
 {

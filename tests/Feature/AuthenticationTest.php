@@ -61,7 +61,7 @@ class AuthenticationTest extends TestCase
         $user = User::factory()->create();
         Sanctum::actingAs( $user );
 
-        $response = $this->getJson('api/v1/authentication/me');
+        $response = $this->getJson('api/v1/user/me');
 
         $response->assertStatus(200);
         $authenticated_user = json_decode($response->getContent())->data;
@@ -73,7 +73,7 @@ class AuthenticationTest extends TestCase
      */
     public function test_can_use_auth_token()
     {
-        $response = $this->getJson('api/v1/authentication/me',[
+        $response = $this->getJson('api/v1/user/me',[
             'authorization' => 'Bearer ' . $this->getAuthToken()
         ]);
 
@@ -105,7 +105,7 @@ class AuthenticationTest extends TestCase
 
         // send the request to any route that requires authentication
         // using the same token
-        $response = $this->getJson('api/v1/authentication/me');
+        $response = $this->getJson('api/v1/user/me');
         $response->assertStatus(401);
         $response->assertJson(['message' => 'Unauthenticated.']);
     }

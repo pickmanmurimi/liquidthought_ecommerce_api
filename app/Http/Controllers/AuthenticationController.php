@@ -44,14 +44,6 @@ class AuthenticationController extends Controller
     }
 
     /**
-     * get currently authenticated user
-     */
-    public function me(): UserResource
-    {
-        return (new UserResource(Auth::user()));
-    }
-
-    /**
      * logout a user
      */
     public function logout() : JsonResponse

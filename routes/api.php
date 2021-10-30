@@ -4,6 +4,7 @@ use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,9 +26,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'authentication'], function () {
     Route::post('register', [RegistrationController::class, 'register'])->name('auth::register');
     Route::post('login', [AuthenticationController::class, 'login'])->name('auth::login');
-    //get currently logged in user
-    Route::get('me', [AuthenticationController::class, 'me'])->middleware('auth:sanctum')
-        ->name('auth::me');
     //logout
     Route::get('logout', [AuthenticationController::class, 'logout'])->middleware('auth:sanctum')
         ->name('auth::logout');
@@ -40,7 +38,11 @@ Route::group(['prefix' => 'items'], function () {
     Route::get('items/{uuid}', [ItemsController::class, 'show'])->name('items::getAll');
 });
 
-//address
-Route::group(['prefix' => 'address', 'middleware' => 'auth:sanctum'], function () {
+//user
+Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function () {
+    //get currently logged in user
+    Route::get('me', [UserController::class, 'me'])->name('auth::me');
+
     Route::post('address', [AddressesController::class, 'store'])->name('address::store');
+    Route::get('address', [AddressesController::class, 'index'])->name('address::index');
 });
