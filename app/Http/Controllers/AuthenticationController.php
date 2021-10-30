@@ -16,7 +16,7 @@ class AuthenticationController extends Controller
      * authentication invalid response
      * @var array $authError
      */
-    public $authError = [
+    public array $authError = [
         'message' => 'Invalid email/password',
         'errors' => [
             'email' => 'Invalid email/password',

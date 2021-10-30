@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
 
 /**
+ * @property mixed uuid
  * @property mixed first_name
  * @property mixed last_name
  * @property mixed email
@@ -22,6 +23,7 @@ class UserResource extends JsonResource
     public function toArray($request): array
     {
         return $this->resource ? [
+            'uuid' => $this->uuid,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,
             'email' => $this->email,
