@@ -21,8 +21,9 @@ class CreateItemsTable extends Migration
             $table->string('sku');
             $table->string('image_url');
             $table->boolean('isAvailable');
+            $table->boolean('isSale');
             $table->text('description');
-            $table->string('currency');
+            $table->string('currency')->default('ZAR');
             $table->string('name');
 
             $table->timestamps();
