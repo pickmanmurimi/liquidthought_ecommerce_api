@@ -41,6 +41,6 @@ Route::group(['prefix' => 'items'], function () {
 });
 
 //address
-Route::group(['prefix' => 'address'], function () {
+Route::group(['prefix' => 'address', 'middleware' => 'auth:sanctum'], function () {
     Route::post('address', [AddressesController::class, 'store'])->name('address::store');
 });
