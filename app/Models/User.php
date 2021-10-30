@@ -7,6 +7,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -50,6 +51,8 @@ use App\Traits\UsesUuid;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin Eloquent
+ * @property string $uuid
+ * @method static Builder|User whereUuid($value)
  */
 class User extends Authenticatable
 {
@@ -92,5 +95,15 @@ class User extends Authenticatable
     protected static function newFactory(): UserFactory
     {
         return UserFactory::new();
+    }
+
+    /**
+     * addresses
+     *
+     * @return MorphMany
+     */
+    public function addresses() : MorphMany
+    {
+        return $this->morphMany( Address::class , 'addressable' );
     }
 }

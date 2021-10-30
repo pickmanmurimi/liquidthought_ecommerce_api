@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\RegistrationController;
@@ -37,4 +38,9 @@ Route::group(['prefix' => 'authentication'], function () {
 Route::group(['prefix' => 'items'], function () {
     Route::get('items', [ItemsController::class, 'index'])->name('items::getAll');
     Route::get('items/{uuid}', [ItemsController::class, 'show'])->name('items::getAll');
+});
+
+//address
+Route::group(['prefix' => 'address'], function () {
+    Route::post('address', [AddressesController::class, 'store'])->name('address::store');
 });
