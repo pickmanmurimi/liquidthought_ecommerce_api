@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Date;
 
 /**
  * App\Models\VerificationToken
@@ -22,7 +23,7 @@ use Illuminate\Support\Carbon;
  * @property string $uuid
  * @property int $user_id
  * @property string $token
- * @property string $expires_at
+ * @property Carbon $expires_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @method static Builder|VerificationToken whereCreatedAt($value)
@@ -43,6 +44,13 @@ class VerificationToken extends Model
     protected $fillable = [
         'token',
         'expires_at'
+    ];
+
+    /**
+     * @var string[] $casts
+     */
+    protected $casts = [
+        'expires_at' => 'datetime'
     ];
 
     /**

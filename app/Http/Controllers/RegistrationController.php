@@ -41,6 +41,5 @@ class RegistrationController extends Controller
             Log::error($exception);
             return $this->sendError('Whoops! something went wrong', 500);
         }
-
     }
 }

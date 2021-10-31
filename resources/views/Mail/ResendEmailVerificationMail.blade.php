@@ -1,7 +1,5 @@
 @component('mail::message')
-    # Welcome To {{ config('app.name')  }} {{ $user->first_name }}
-
-    Your Account has been successfully created.
+    # Verify your email {{ $user->first_name }}
 
     Click on the button below to verify your account.
 

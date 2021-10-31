@@ -120,7 +120,7 @@ class User extends Authenticatable
     {
         return $this->verificationTokens()->create([
             'token' => Str::lower(Str::random(64)),
-            'expires_at' => Carbon::now()->hour(1)
+            'expires_at' => Carbon::now()->addHour(1)
         ]);
     }
 
