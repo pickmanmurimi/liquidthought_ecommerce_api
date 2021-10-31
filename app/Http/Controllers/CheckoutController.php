@@ -25,7 +25,8 @@ class CheckoutController extends Controller
     {
         /**
          * we will only be simulating the checkout process here,
-         * we just assume creating an order is checking out.
+         * we will just create an order and checkout.
+         * The payment for the order will be handled by a "third party" :).
          */
         try {
             DB::beginTransaction();
