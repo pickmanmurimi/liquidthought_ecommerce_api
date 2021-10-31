@@ -45,8 +45,7 @@ class AddressTest extends TestCase
     public function test_can_get_user_addresses()
     {
         /** @var User $user */
-        $user = User::factory()->hasAddresses(2)->create();
-        Sanctum::actingAs($user);
+        $this->authenticateUser();
 
         $response = $this->getJson('api/v1/user/address');
         $response->assertStatus(200);
