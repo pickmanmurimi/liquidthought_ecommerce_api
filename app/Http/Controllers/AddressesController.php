@@ -21,7 +21,7 @@ class AddressesController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        return AddressResource::collection($user->addresses);
+        return AddressResource::collection($user->addresses()->orderByDesc('created_at')->get());
     }
 
     /**

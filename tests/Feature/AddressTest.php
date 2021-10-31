@@ -34,9 +34,9 @@ class AddressTest extends TestCase
 
         $response = $this->postJson('api/v1/user/address', $address);
         $response->assertStatus(201);
-        $this->assertCount(1,Address::all());
-        $this->assertTrue( User::first()->addresses->first()->address === $address['address']);
-        $this->assertTrue( Address::first()->addressable_type === User::class);
+        $this->assertCount(1, Address::all());
+        $this->assertTrue(User::first()->addresses->first()->address === $address['address']);
+        $this->assertTrue(Address::first()->addressable_type === User::class);
     }
 
     /**
@@ -50,5 +50,14 @@ class AddressTest extends TestCase
 
         $response = $this->getJson('api/v1/user/address');
         $response->assertStatus(200);
+        $response->assertJsonStructure(['data' => [[
+            'uuid',
+            'full_name',
+            'address',
+            'postal_code',
+            'city',
+            'state',
+            'country',
+        ]]]);
     }
 }

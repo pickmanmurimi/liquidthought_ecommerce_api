@@ -14,7 +14,7 @@ class ItemsController extends Controller
     public function index(): AnonymousResourceCollection
     {
         /** @var Item $items */
-        $items = Item::paginate(10);
+        $items = Item::orderByDesc('created_at')->paginate(10);
 
         return ItemResource::collection($items);
     }
