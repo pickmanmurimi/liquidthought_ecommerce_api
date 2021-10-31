@@ -32,7 +32,8 @@ class SendEmailVerificationMail extends Mailable implements ShouldQueue
     public function __construct( User $user, VerificationToken $verificationToken)
     {
         $this->user = $user;
-        $this->url = config('app.frontend_url') . '/verify/' . $verificationToken->token . '/' . $verificationToken->uuid;
+        $this->url = config('app.frontend_url')
+            . '/verify/' . $verificationToken->token . '/' . $verificationToken->uuid;
     }
 
     /**
