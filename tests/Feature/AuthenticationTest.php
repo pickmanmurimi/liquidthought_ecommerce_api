@@ -22,7 +22,7 @@ class AuthenticationTest extends TestCase
     {
         // create user
         /** @var User $user */
-        $user = User::factory()->create();
+        $user = $this->authenticateUser();
 
         $loginData = [
             'email' => $user->email,
@@ -58,8 +58,7 @@ class AuthenticationTest extends TestCase
     {
         // create user
         /** @var User $user */
-        $user = User::factory()->create();
-        Sanctum::actingAs( $user );
+        $user = $this->authenticateUser();
 
         $response = $this->getJson('api/v1/user/me');
 

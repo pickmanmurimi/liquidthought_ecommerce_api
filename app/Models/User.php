@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\UsesUuid;
 use Database\Factories\UserFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +16,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
-use App\Traits\UsesUuid;
 
 /**
  * App\Models\User
@@ -53,7 +53,7 @@ use App\Traits\UsesUuid;
  * @mixin Eloquent
  * @property string $uuid
  * @method static Builder|User whereUuid($value)
- * @property-read Collection|\App\Models\Address[] $addresses
+ * @property-read Collection|Address[] $addresses
  * @property-read int|null $addresses_count
  */
 class User extends Authenticatable
@@ -104,8 +104,8 @@ class User extends Authenticatable
      *
      * @return MorphMany
      */
-    public function addresses() : MorphMany
+    public function addresses(): MorphMany
     {
-        return $this->morphMany( Address::class , 'addressable' );
+        return $this->morphMany(Address::class, 'addressable');
     }
 }

@@ -4,17 +4,20 @@ namespace App\Models;
 
 use App\Traits\UsesUuid;
 use Database\Factories\ItemFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Item
  *
- * @method static \Database\Factories\ItemFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|Item newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Item newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Item query()
- * @mixin \Eloquent
+ * @method static ItemFactory factory(...$parameters)
+ * @method static Builder|Item newModelQuery()
+ * @method static Builder|Item newQuery()
+ * @method static Builder|Item query()
+ * @mixin Eloquent
  * @property int $id
  * @property string $uuid
  * @property string $name
@@ -25,22 +28,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $isSale
  * @property string $description
  * @property string $currency
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereCurrency($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereImageUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsAvailable($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsSale($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereSku($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereUnitPrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereUuid($value)
+ * @method static Builder|Item whereCreatedAt($value)
+ * @method static Builder|Item whereCurrency($value)
+ * @method static Builder|Item whereDeletedAt($value)
+ * @method static Builder|Item whereDescription($value)
+ * @method static Builder|Item whereId($value)
+ * @method static Builder|Item whereImageUrl($value)
+ * @method static Builder|Item whereIsAvailable($value)
+ * @method static Builder|Item whereIsSale($value)
+ * @method static Builder|Item whereName($value)
+ * @method static Builder|Item whereSku($value)
+ * @method static Builder|Item whereUnitPrice($value)
+ * @method static Builder|Item whereUpdatedAt($value)
+ * @method static Builder|Item whereUuid($value)
  */
 class Item extends Model
 {

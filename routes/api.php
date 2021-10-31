@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddressesController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\UserController;
@@ -36,6 +37,8 @@ Route::group(['prefix' => 'authentication'], function () {
 Route::group(['prefix' => 'items'], function () {
     Route::get('items', [ItemsController::class, 'index'])->name('items::getAll');
     Route::get('items/{uuid}', [ItemsController::class, 'show'])->name('items::getAll');
+
+    Route::post('checkout', [CheckoutController::class, 'checkout'])->name('items::checkout');
 });
 
 //user
