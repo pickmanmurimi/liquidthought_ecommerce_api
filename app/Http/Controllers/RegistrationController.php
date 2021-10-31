@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegistrationRequest;
 use App\Mail\SendEmailVerificationMail;
 use App\Models\User;
+use App\Models\VerificationToken;
 use Exception;
 use Hash;
 use Illuminate\Http\JsonResponse;
@@ -29,8 +30,10 @@ class RegistrationController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
+            $verificationToken = $user->createVerificationToken();
+
             // send email verification
-            Mail::to($user)->send(new SendEmailVerificationMail($user));
+            Mail::to($user)->send(new SendEmailVerificationMail($user, $verificationToken));
 
             return $this->sendSuccess('User registered!', 201);
 

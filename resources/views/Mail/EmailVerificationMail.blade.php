@@ -3,12 +3,13 @@
 
     Your Account has been successfully created.
 
-{{--    Click on the button below to activate your account.--}}
+    Click on the button below to activate your account.
 
-{{--@component('mail::button', ['url' => $url])--}}
-{{--    Confirm Email--}}
-{{--@endcomponent--}}
-{{--    <a href="{{$url}}"> {{$url}} </a>--}}
+@component('mail::button', ['url' => $url])
+    Confirm Email
+@endcomponent
+
+<a href="{{$url}}"> {{$url}} </a>
 
     Thanks,
     {{ config('app.name') }}

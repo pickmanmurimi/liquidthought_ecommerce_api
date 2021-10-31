@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\User;
+use App\Models\VerificationToken;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -28,10 +29,10 @@ class SendEmailVerificationMail extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct( User $user)
+    public function __construct( User $user, VerificationToken $verificationToken)
     {
         $this->user = $user;
-        $this->url = config('app.frontend_url');
+        $this->url = config('app.frontend_url') . '/verify/' . $verificationToken->token . '/' . $verificationToken->uuid;
     }
 
     /**

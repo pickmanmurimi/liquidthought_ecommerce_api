@@ -8,12 +8,14 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -55,6 +57,8 @@ use Laravel\Sanctum\PersonalAccessToken;
  * @method static Builder|User whereUuid($value)
  * @property-read Collection|Address[] $addresses
  * @property-read int|null $addresses_count
+ * @property-read Collection|VerificationToken[] $verificationTokens
+ * @property-read int|null $verification_tokens_count
  */
 class User extends Authenticatable
 {
@@ -107,5 +111,24 @@ class User extends Authenticatable
     public function addresses(): MorphMany
     {
         return $this->morphMany(Address::class, 'addressable');
+    }
+
+    /**
+     * @return VerificationToken
+     */
+    public function createVerificationToken()
+    {
+        return $this->verificationTokens()->create([
+            'token' => Str::lower(Str::random(64)),
+            'expires_at' => Carbon::now()->hour(1)
+        ]);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function verificationTokens(): HasMany
+    {
+        return $this->hasMany(VerificationToken::class);
     }
 }

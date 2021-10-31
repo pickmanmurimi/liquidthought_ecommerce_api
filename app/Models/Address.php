@@ -6,10 +6,12 @@ use App\Traits\UsesUuid;
 use Database\Factories\AddressFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Address
@@ -30,10 +32,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $city
  * @property string|null $state
  * @property string|null $country
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Order[] $orders
+ * @property-read Collection|Order[] $orders
  * @property-read int|null $orders_count
  * @method static Builder|Address whereAddress($value)
  * @method static Builder|Address whereAddressableId($value)
