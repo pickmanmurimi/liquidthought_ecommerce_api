@@ -7,14 +7,16 @@ right place.
 
 Let's begin 😀.
 
-##Requirements
+## Requirements
+
 - apache/Nginx
 - php 8.^
 - mysql:8.0
 - sqlite
 - Laravel dependencies and installation requirements are listed here, https://laravel.com/docs/8.x/installation
 
-##Environment Setup
+## Environment Setup
+
 Well this is a very simple api instance, all you really need to do is to copy the `.env.example` file and 
 paste it as `.env`.
 You now just need to change the values for the following variables to match your environment.
