@@ -2,15 +2,67 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\UsesUuid;
+use Database\Factories\UserFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
+use Laravel\Sanctum\PersonalAccessToken;
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $remember_token
+ * @property string|null $options
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read Collection|PersonalAccessToken[] $tokens
+ * @property-read int|null $tokens_count
+ * @method static UserFactory factory(...$parameters)
+ * @method static Builder|User newModelQuery()
+ * @method static Builder|User newQuery()
+ * @method static Builder|User query()
+ * @method static Builder|User whereCreatedAt($value)
+ * @method static Builder|User whereDeletedAt($value)
+ * @method static Builder|User whereEmail($value)
+ * @method static Builder|User whereEmailVerifiedAt($value)
+ * @method static Builder|User whereFirstName($value)
+ * @method static Builder|User whereId($value)
+ * @method static Builder|User whereLastName($value)
+ * @method static Builder|User whereOptions($value)
+ * @method static Builder|User wherePassword($value)
+ * @method static Builder|User whereRememberToken($value)
+ * @method static Builder|User whereUpdatedAt($value)
+ * @mixin Eloquent
+ * @property string $uuid
+ * @method static Builder|User whereUuid($value)
+ * @property-read Collection|Address[] $addresses
+ * @property-read int|null $addresses_count
+ * @property-read Collection|VerificationToken[] $verificationTokens
+ * @property-read int|null $verification_tokens_count
+ */
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, UsesUuid;
 
     /**
      * The attributes that are mass assignable.
@@ -18,7 +70,8 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
     ];
@@ -41,4 +94,41 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return UserFactory
+     */
+    protected static function newFactory(): UserFactory
+    {
+        return UserFactory::new();
+    }
+
+    /**
+     * addresses
+     *
+     * @return MorphMany
+     */
+    public function addresses(): MorphMany
+    {
+        return $this->morphMany(Address::class, 'addressable');
+    }
+
+    /**
+     * @return VerificationToken
+     */
+    public function createVerificationToken()
+    {
+        return $this->verificationTokens()->create([
+            'token' => Str::lower(Str::random(64)),
+            'expires_at' => Carbon::now()->addHour(1)
+        ]);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function verificationTokens(): HasMany
+    {
+        return $this->hasMany(VerificationToken::class);
+    }
 }
