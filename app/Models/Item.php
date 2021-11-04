@@ -64,6 +64,14 @@ class Item extends Model
     ];
 
     /**
+     * @var string[] $casts
+     */
+    protected $casts = [
+        'isSale' => 'boolean',
+        'isAvailable' => 'boolean',
+    ];
+
+    /**
      * @return ItemFactory
      */
     public function newFactory(): ItemFactory

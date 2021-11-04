@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
+ * @property mixed $id
  * @property mixed $uuid
  * @property mixed $name
  * @property mixed $unit_price
@@ -27,6 +28,7 @@ class ItemResource extends JsonResource
     public function toArray($request)
     {
         return $this->resource ? [
+            'id' => $this->id,
             'uuid' => $this->uuid,
             'name' => $this->name,
             'unit_price' => $this->unit_price,

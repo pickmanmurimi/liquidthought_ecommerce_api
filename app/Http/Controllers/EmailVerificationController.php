@@ -22,7 +22,11 @@ class EmailVerificationController extends Controller
     public function verifyEmail($token, $uuid): JsonResponse
     {
         /** @var VerificationToken $verificationToken */
-        $verificationToken = VerificationToken::findUuid($uuid);
+        $verificationToken = VerificationToken::whereUuid($uuid)->first();
+
+        if (!$verificationToken) {
+            return $this->sendError('Could not find your token!', 422);
+        }
 
         if ($verificationToken->token === $token && $verificationToken->expires_at->isFuture()) {
             $verificationToken->user()->update(['email_verified_at' => now()]);

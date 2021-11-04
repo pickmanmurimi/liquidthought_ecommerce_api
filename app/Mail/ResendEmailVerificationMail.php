@@ -33,7 +33,7 @@ class ResendEmailVerificationMail extends Mailable implements ShouldQueue
     {
         $this->user = $user;
         $this->url = config('app.frontend_url')
-            . '/verify/' . $verificationToken->token . '/' . $verificationToken->uuid;
+            . '/confirm-email/' . $verificationToken->token . '/' . $verificationToken->uuid;
     }
 
     /**
