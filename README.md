@@ -22,7 +22,7 @@ paste it as `.env`.
 You now just need to change the values for the following variables to match your environment.
 
     FRONTEND_URL=http://localhost:3000
-    # you can use my default slack url https://hooks.slack.com/services/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
+    # you can use my default slack url https://hooks.slack.com/services/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
     # it basically enables me to moniot the app via slack for debug logs
     LOG_SLACK_WEBHOOK_URL=
     
@@ -40,6 +40,12 @@ TO confirm everything is running fine, just run.
     php artisan test
 
 I wrote tests for the api, this if all is well, these should pass if your environment and `.env` was set up right.
+
+Now run 
+
+    php artisan db:seed
+
+This will add dummy products to the database.
 
 ## Running the Project.
 
