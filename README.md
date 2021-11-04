@@ -41,6 +41,12 @@ TO confirm everything is running fine, just run.
 
 I wrote tests for the api, this if all is well, these should pass if your environment and `.env` was set up right.
 
+Now run 
+
+    php artisan db:seed
+
+This will add dummy products to the database.
+
 ## Running the Project.
 
 Well a Laravel project is quite easy to get running, You basically need to run `composer install`. 
