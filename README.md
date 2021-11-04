@@ -7,14 +7,16 @@ right place.
 
 Let's begin 😀.
 
-##Requirements
+## Requirements
+
 - apache/Nginx
 - php 8.^
 - mysql:8.0
 - sqlite
 - Laravel dependencies and installation requirements are listed here, https://laravel.com/docs/8.x/installation
 
-##Environment Setup
+## Environment Setup
+
 Well this is a very simple api instance, all you really need to do is to copy the `.env.example` file and 
 paste it as `.env`.
 You now just need to change the values for the following variables to match your environment.
@@ -39,7 +41,7 @@ TO confirm everything is running fine, just run.
 
 I wrote tests for the api, this if all is well, these should pass if your environment and `.env` was set up right.
 
-##Running the Project.
+## Running the Project.
 
 Well a Laravel project is quite easy to get running, You basically need to run `composer install`. 
 Finally `php artisan serve`, in case you do not have virtual hosts configured on your pc.
