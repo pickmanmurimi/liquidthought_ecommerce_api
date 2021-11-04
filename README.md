@@ -41,7 +41,7 @@ TO confirm everything is running fine, just run.
 
 I wrote tests for the api, this if all is well, these should pass if your environment and `.env` was set up right.
 
-##Running the Project.
+## Running the Project.
 
 Well a Laravel project is quite easy to get running, You basically need to run `composer install`. 
 Finally `php artisan serve`, in case you do not have virtual hosts configured on your pc.
