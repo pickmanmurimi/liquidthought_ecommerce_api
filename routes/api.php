@@ -49,7 +49,8 @@ Route::group(['prefix' => 'items'], function () {
 
     Route::get('items/{uuid}', [ItemsController::class, 'show'])->name('items::getAll');
 
-    Route::post('checkout', [CheckoutController::class, 'checkout'])->name('items::checkout');
+    Route::post('checkout', [CheckoutController::class, 'checkout'])->name('items::checkout')
+    ->middleware('auth:sanctum');
 });
 
 //user

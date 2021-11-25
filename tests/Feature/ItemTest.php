@@ -30,7 +30,8 @@ class ItemTest extends TestCase
                 'isAvailable',
                 'isSale',
                 'description',
-                'currency'
+                'currency',
+                'ItemCategory'
             ]
         ]]);
     }
@@ -54,7 +55,8 @@ class ItemTest extends TestCase
             'isAvailable',
             'isSale',
             'description',
-            'currency'
+            'currency',
+            'ItemCategory'
         ]]);
     }
 }

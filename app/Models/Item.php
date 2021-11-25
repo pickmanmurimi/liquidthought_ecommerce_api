@@ -8,6 +8,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -77,5 +78,13 @@ class Item extends Model
     public function newFactory(): ItemFactory
     {
         return new ItemFactory();
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function ItemCategory(): BelongsTo
+    {
+        return $this->belongsTo(ItemCategory::class);
     }
 }

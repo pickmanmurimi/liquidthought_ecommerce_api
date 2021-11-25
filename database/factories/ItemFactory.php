@@ -34,7 +34,8 @@ class ItemFactory extends Factory
             'isAvailable' => true,
             'isSale' => false,
             'description' => $this->faker->paragraph(10),
-            'currency' => 'ZAR'
+            'currency' => 'ZAR',
+            'item_category_id' =>  random_int(1, 2),
         ];
     }
 }
