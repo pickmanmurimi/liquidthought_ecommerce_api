@@ -32,6 +32,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property ItemFactory $ItemCategory
  * @method static Builder|Item whereCreatedAt($value)
  * @method static Builder|Item whereCurrency($value)
  * @method static Builder|Item whereDeletedAt($value)

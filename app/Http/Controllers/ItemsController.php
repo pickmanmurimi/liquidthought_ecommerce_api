@@ -23,6 +23,26 @@ class ItemsController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param $uuid
+     * @return AnonymousResourceCollection
+     */
+    public function getRelatedItems(Request $request, $uuid): AnonymousResourceCollection
+    {
+        /** @var Item $item */
+        $item = Item::findUuid($uuid);
+
+        $paginate = $request->input('items', 3);
+        /** @var Item $items */
+        $items = Item::with('ItemCategory')
+            ->where('item_category_id', $item->ItemCategory->id)
+            ->where('id', '!=', $item->id)
+            ->inRandomOrder()->paginate($paginate);
+
+        return ItemResource::collection($items);
+    }
+
+    /**
      * @param $uuid
      * @return ItemResource
      */
