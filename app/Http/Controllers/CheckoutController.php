@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CheckoutRequest;
+use App\Mail\SendOrderCreatedMail;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\User;
@@ -11,6 +12,7 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Log;
+use Mail;
 use Throwable;
 
 class CheckoutController extends Controller
@@ -28,25 +30,19 @@ class CheckoutController extends Controller
          * we will just create an order and checkout.
          * The payment for the order will be handled by a "third party" :).
          */
-        try {
-//            DB::beginTransaction();
+        /** @var User $user */
+        $user = Auth::user();
+        /** @var Address $address */
+        $address = $user->addresses()->whereUuid($request->address_uuid)->first();
+        // create an order
+        /** @var Order $order */
+        $order = $address->orders()->create();
+        // add items to that order
+        $order->orderItems()->createMany($request->items);
 
-            /** @var User $user */
-            $user = Auth::user();
-            /** @var Address $address */
-            $address = $user->addresses()->whereUuid($request->address_uuid)->first();
-            // create an order
-            /** @var Order $order */
-            $order = $address->orders()->create();
-            // add items to that order
-            $order->orderItems()->createMany($request->items);
+        Mail::to($user)->send(new SendOrderCreatedMail($order, $user));
 
-//            DB::commit();
-            return $this->sendSuccess('Added items to order!', 201);
-        } catch (Exception $exception) {
-//            DB::rollBack();
-            Log::error($exception);
-            return $this->sendError();
-        }
+        return $this->sendSuccess('Added items to order!', 201);
+
     }
 }
