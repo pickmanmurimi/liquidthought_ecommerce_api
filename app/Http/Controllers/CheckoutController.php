@@ -29,7 +29,7 @@ class CheckoutController extends Controller
          * The payment for the order will be handled by a "third party" :).
          */
         try {
-            DB::beginTransaction();
+//            DB::beginTransaction();
 
             /** @var User $user */
             $user = Auth::user();
@@ -41,10 +41,10 @@ class CheckoutController extends Controller
             // add items to that order
             $order->orderItems()->createMany($request->items);
 
-            DB::commit();
+//            DB::commit();
             return $this->sendSuccess('Added items to order!', 201);
         } catch (Exception $exception) {
-            DB::rollBack();
+//            DB::rollBack();
             Log::error($exception);
             return $this->sendError();
         }

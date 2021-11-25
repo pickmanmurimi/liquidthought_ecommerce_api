@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Item;
+use App\Models\ItemCategory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -30,7 +31,36 @@ class ItemTest extends TestCase
                 'isAvailable',
                 'isSale',
                 'description',
-                'currency'
+                'currency',
+                'ItemCategory'
+            ]
+        ]]);
+    }
+
+    /**
+     * get items
+     */
+    public function test_can_get_related_items()
+    {
+        ItemCategory::factory()->count(2)->create();
+        Item::factory()->count(10)->create();
+        $item = Item::first();
+
+        $response = $this->getJson('api/v1/items/items/related-items/' . $item->uuid);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure(['data' => [
+            [
+                'uuid',
+                'name',
+                'unit_price',
+                'sku',
+                'image_url',
+                'isAvailable',
+                'isSale',
+                'description',
+                'currency',
+                'ItemCategory'
             ]
         ]]);
     }
@@ -54,7 +84,8 @@ class ItemTest extends TestCase
             'isAvailable',
             'isSale',
             'description',
-            'currency'
+            'currency',
+            'ItemCategory'
         ]]);
     }
 }

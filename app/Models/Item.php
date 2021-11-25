@@ -8,6 +8,7 @@ use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 /**
@@ -31,6 +32,7 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property ItemFactory $ItemCategory
  * @method static Builder|Item whereCreatedAt($value)
  * @method static Builder|Item whereCurrency($value)
  * @method static Builder|Item whereDeletedAt($value)
@@ -77,5 +79,13 @@ class Item extends Model
     public function newFactory(): ItemFactory
     {
         return new ItemFactory();
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function ItemCategory(): BelongsTo
+    {
+        return $this->belongsTo(ItemCategory::class);
     }
 }
