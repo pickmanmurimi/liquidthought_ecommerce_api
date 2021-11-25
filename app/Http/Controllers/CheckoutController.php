@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CheckoutRequest;
+use App\Http\Resources\OrderResource;
 use App\Mail\SendOrderCreatedMail;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\User;
 use Auth;
-use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
-use Log;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Mail;
 use Throwable;
 
@@ -44,5 +45,23 @@ class CheckoutController extends Controller
 
         return $this->sendSuccess('Added items to order!', 201);
 
+    }
+
+
+    /**
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function getOrders(Request $request): AnonymousResourceCollection
+    {
+        /** @var User $user */
+        $user = Auth::user();
+        /** @var Collection $addresses */
+        $addresses = $user->addresses;
+
+        $orders = Order::with('orderItems')
+            ->whereIn('address_id', $addresses->pluck('id'))->get();
+
+        return OrderResource::collection($orders);
     }
 }

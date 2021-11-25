@@ -54,6 +54,9 @@ Route::group(['prefix' => 'items'], function () {
 
     Route::post('checkout', [CheckoutController::class, 'checkout'])->name('items::checkout')
     ->middleware('auth:sanctum');
+
+    Route::get('orders', [CheckoutController::class, 'getOrders'])->name('items::getOrders')
+    ->middleware('auth:sanctum');
 });
 
 //user
