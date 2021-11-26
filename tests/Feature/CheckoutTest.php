@@ -59,19 +59,24 @@ class CheckoutTest extends TestCase
         $response->assertJsonStructure(['data' => [
             ['id',
                 'uuid',
-                'addresses',
-                'items' => [
+                'address',
+                'orderItems' => [
                     [
+                        'id',
                         'uuid',
-                        'name',
-                        'unit_price',
-                        'sku',
-                        'image_url',
-                        'isAvailable',
-                        'isSale',
-                        'description',
-                        'currency',
-                        'ItemCategory'
+                        'quantity',
+                        'item' => [
+                            'uuid',
+                            'name',
+                            'unit_price',
+                            'sku',
+                            'image_url',
+                            'isAvailable',
+                            'isSale',
+                            'description',
+                            'currency',
+                            'ItemCategory'
+                        ]
                     ]
                 ],
             ]

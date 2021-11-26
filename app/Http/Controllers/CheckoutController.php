@@ -61,6 +61,7 @@ class CheckoutController extends Controller
 
         $orders = Order::with('orderItems')
             ->whereIn('address_id', $addresses->pluck('id'))
+            ->orderBy('created_at','desc')
             ->paginate( $request->input('items', 10));
 
         return OrderResource::collection($orders);

@@ -28,8 +28,8 @@ class OrderResource extends JsonResource
         return $this->resource ? [
             'id' => $this->id,
             'uuid' => $this->uuid,
-            'addresses' => $this->address,
-            'items' => OrderItemResource::collection($this->orderItems),
+            'address' => $this->address,
+            'orderItems' => OrderItemResource::collection($this->orderItems),
             'created_at' => $this->created_at->format('d M Y H:i:s'),
         ] : [];
     }
