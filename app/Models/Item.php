@@ -46,6 +46,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Item whereUnitPrice($value)
  * @method static Builder|Item whereUpdatedAt($value)
  * @method static Builder|Item whereUuid($value)
+ * @property int $item_category_id
+ * @method static Builder|Item whereItemCategoryId($value)
  */
 class Item extends Model
 {

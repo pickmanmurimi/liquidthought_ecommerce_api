@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Address;
 use App\Models\User;
+use Auth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
@@ -40,7 +41,21 @@ class AddressTest extends TestCase
     }
 
     /**
-     * user can get there addresses
+     * set default address
+     */
+    public function test_can_set_default_address()
+    {
+        /** @var User $user */
+        $this->authenticateUser();
+        $address = Auth::user()->addresses->first();
+
+        $response = $this->patchJson('api/v1/user/address/default/' . $address->uuid );
+        $response->assertStatus(200);
+        $this->assertTrue( Address::findUuid( $address->uuid )->default );
+    }
+
+    /**
+     * user can get their addresses
      */
     public function test_can_get_user_addresses()
     {

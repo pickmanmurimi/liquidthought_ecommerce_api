@@ -37,7 +37,7 @@ class CheckoutController extends Controller
         $address = $user->addresses()->whereUuid($request->address_uuid)->first();
         // create an order
         /** @var Order $order */
-        $order = $address->orders()->create();
+        $order = $address->orders()->create([ 'user_id' => $user->id]);
         // add items to that order
         $order->orderItems()->createMany($request->items);
 
@@ -60,7 +60,9 @@ class CheckoutController extends Controller
         $addresses = $user->addresses;
 
         $orders = Order::with('orderItems')
-            ->whereIn('address_id', $addresses->pluck('id'))->get();
+            ->whereIn('address_id', $addresses->pluck('id'))
+            ->orderBy('created_at','desc')
+            ->paginate( $request->input('items', 10));
 
         return OrderResource::collection($orders);
     }

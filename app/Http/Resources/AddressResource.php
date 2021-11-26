@@ -15,6 +15,7 @@ use JsonSerializable;
  * @property mixed $city
  * @property mixed $state
  * @property mixed $country
+ * @property mixed $default
  */
 class AddressResource extends JsonResource
 {
@@ -34,6 +35,7 @@ class AddressResource extends JsonResource
             'city' => $this->city,
             'state' => $this->state,
             'country' => $this->country,
+            'default' => $this->default,
         ] : [];
     }
 }
