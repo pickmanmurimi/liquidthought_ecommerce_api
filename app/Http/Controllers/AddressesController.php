@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateAddressRequest;
 use App\Http\Resources\AddressResource;
+use App\Models\Address;
 use App\Models\User;
 use Auth;
 use Exception;
@@ -30,26 +31,40 @@ class AddressesController extends Controller
      */
     public function store(CreateAddressRequest $request): JsonResponse
     {
-        try {
-            /** @var User $user */
-            $user = Auth::user();
-            /** create address */
-            $user->addresses()->create(
-                [
-                    'full_name' => $request->full_name,
-                    'address' => $request->address,
-                    'postal_code' => $request->postal_code,
-                    'city' => $request->city,
-                    'state' => $request->state,
-                    'country' => $request->country,
-                ]
-            );
+        /** @var User $user */
+        $user = Auth::user();
+        /** create address */
+        $user->addresses()->create(
+            [
+                'full_name' => $request->full_name,
+                'address' => $request->address,
+                'postal_code' => $request->postal_code,
+                'city' => $request->city,
+                'state' => $request->state,
+                'country' => $request->country,
+            ]
+        );
 
-            return $this->sendSuccess('Address added!', 201);
+        return $this->sendSuccess('Address added!', 201);
+    }
 
-        } catch (Exception $exception) {
-            Log::error($exception);
-            return $this->sendError();
-        }
+    /**
+     * @param $uuid
+     * @return JsonResponse
+     */
+    public function setDefault( $uuid ): JsonResponse
+    {
+        /** @var User $user */
+        $user = Auth::user();
+
+        //get address
+        /** @var Address $address */
+        $address = $user->addresses()->whereUuid($uuid)->firstOrFail();
+        // update all addresses
+        $user->addresses()->update([ 'default' => false ]);
+        $address->update([ 'default' => true ]);
+
+        return $this->sendSuccess('Address set as default');
+
     }
 }

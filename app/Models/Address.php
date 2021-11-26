@@ -65,6 +65,14 @@ class Address extends Model
         'city',
         'state',
         'country',
+        'default'
+    ];
+
+    /**
+     * @var string[] $casts
+     */
+    protected $casts = [
+        'default' => 'boolean'
     ];
 
     /**

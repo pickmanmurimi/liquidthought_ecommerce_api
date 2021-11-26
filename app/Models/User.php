@@ -131,4 +131,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(VerificationToken::class);
     }
+
+    /**
+     * @return HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
 }

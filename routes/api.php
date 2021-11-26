@@ -66,5 +66,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:sanctum'], function () {
 
     Route::post('address', [AddressesController::class, 'store'])->name('address::store');
 
+    Route::patch('address/default/{uuid}', [AddressesController::class, 'setDefault'])->name('address::setDefault');
+
     Route::get('address', [AddressesController::class, 'index'])->name('address::index');
 });

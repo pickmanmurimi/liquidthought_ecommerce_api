@@ -39,6 +39,20 @@ class Order extends Model
 {
     use HasFactory, UsesUuid;
 
+    /** @var array $fillable */
+    public $fillable = [
+        'user_id',
+        'address_id',
+    ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo( User::class );
+    }
+
     /**
      * @return BelongsTo
      */
